@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!---Adding field in settings : company check_in time-->
+        <record model="ir.ui.view" id="attendance_settings_change">
+            <field name="name">attendance setting changes</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="Attendances" string="Attendances"
+                         data-key="hr_attendance" groups="hr_attendance.group_hr_attendance_manager">
+                        <h2>Company Check In Time</h2>
+                        <div class="o_setting_right_pane">
+                            <div class="row mt16 o_settings_container">
+                                <field name="com_check" class="o_light_label" widget="Float" force_save="1"/>
+                            </div>
+
+                            <div class="text-muted">
+                                Use Company Time to Calculate Attendance
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <!---action window-->
+        <record id="employee_menu_action" model="ir.actions.act_window">
+            <field name="name">Employee Absentees List</field>
+            <field name="res_model">employee.absent.list</field>
+            <field name="view_mode">tree,pivot</field>
+            <field name="context">{'search_default_groupby_order':1}</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <!---Absent list : Tree view-->
+        <record id="student_tree_view" model="ir.ui.view">
+            <field name="name">Employee absent Tree</field>
+            <field name="model">employee.absent.list</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Absentees List">
+                    <field name="emp_name" string="Employee Name"/>
+                    <field name="type_of_lve" string="Type Of Leave"/>
+                    <field name="reason" string="Reason"/>
+                    <field name="status" string="Status"/>
+                    <field name="approve_by" string="Approve By"/>
+                    <field name="half" string="Is Half Day?"/>
+                </tree>
+            </field>
+        </record>
+
+        <!---Absent list : Form view-->
+        <record id="employee_tree_view" model="ir.ui.view">
+            <field name="name">Employee Form</field>
+            <field name="model">employee.absent.list</field>
+            <field name="arch" type="xml">
+                <form string="Employee Absentees List">
+                    <sheet>
+                        <div class="oe_title">
+                            <h3>
+                                <field name="emp_name"/>
+                            </h3>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="reason"/>
+                                <field name="status"/>
+                            </group>
+                            <group>
+                                <field name="approve_by"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="cat_action_menu" parent="hr_attendance.menu_hr_attendance_manage_attendances"
+                  name="Employee Absentees List" action="employee_menu_action" sequence="6"/>
+
+          <!---Group by,filter-->
+        <record id="employee_task_filter_view" model="ir.ui.view">
+            <field name="name">Search View</field>
+            <field name="model">employee.absent.list</field>
+            <field name="arch" type="xml">
+                <search string="employee absentees filter">
+                    <!---Default filter-->
+                    <filter name="groupby_order" icon="terp-gtk-jump-to-rtl" string="By Month" domain="[]"
+                            context="{'group_by':'to_date:month'}"/>
+                    <filter name="groupby_order" icon="terp-gtk-jump-to-rtl" string="By Date" domain="[]"
+                            context="{'group_by':'to_date:day'}"/>
+
+                    <group name="Group By">
+                        <filter string="By Employee" name="emp_name" context="{'group_by':'emp_name'}"/>
+                        <filter string="By Type Of Leave" name="type_of_lve" context="{'group_by':'type_of_lve'}"/>
+                    </group>
+
+                </search>
+            </field>
+        </record>
+
+    </data>
+</odoo>

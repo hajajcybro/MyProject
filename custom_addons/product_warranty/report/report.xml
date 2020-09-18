@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <report
+            string="Employee Absentees Report"
+            id="absentees_list_report"
+            model="employee.absent.list"
+            report_type="qweb-pdf"
+            name="hr_absentees_report.report_template"
+            file="hr_absentees_report.report_template"/>
+
+    <report
+            string="Employee Absentees Report"
+            id="absentees_list_report_emp"
+            model="employee.absent.list"
+            report_type="qweb-pdf"
+            name="hr_absentees_report.report_template_emp"
+            file="hr_absentees_report.report_template_emp"/>
+
+    <report
+            string="Print Report Excel"
+            id="hr_absentees_report_excel"
+            model="employee.absent.list"
+            report_type="xlsx"
+            name="hr_absentees_report.report_template_xls"
+            file="hr_absentees_report.report_template_xls"/>
+
+
+</odoo>

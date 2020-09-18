@@ -1,0 +1,7 @@
+<odoo>
+    <template id="assets_backend" name="im assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/hr_absentees_report/static/src/js/action_call.js"></script>
+        </xpath>
+    </template>
+</odoo>
