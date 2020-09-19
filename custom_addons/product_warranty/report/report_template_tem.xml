@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_template">
+        <t t-call="web.html_container">
+            <tr t-call="web.external_layout">
+                <div class="page">
+                    <h2 class="text-center">
+                        <b>Employee Absentees Report</b>
+                    </h2>
+                    <center>
+                        <h4>Date Wise</h4>
+                    </center>
+
+
+                    <div class="row mt32">
+                        <div class="col-3 text-center">
+                            <strong>Start Date:</strong>
+                            <t t-esc="date_start"/>
+                        </div>
+                        <div class="col-3 text-center" style="margin-left:10px ">
+                            <strong>End Date:</strong>
+                            <t t-esc="date_end"/>
+                        </div>
+                        <div class="col-2"></div>
+                        <div class="col-2"></div>
+                        <div class="col-3"></div>
+                    </div>
+
+                    <table class="table table-striped">
+                        <th></th>
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Sl No</th>
+                                <th>Name</th>
+                                <th>Employee ID</th>
+                                <th>Type of Leave</th>
+                                <th>Approved By</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr t-foreach="docs" t-as="doc">
+
+                                <td class="text-center">
+                                    <span t-esc="i"></span>
+                                    <t t-set="i" t-value="i+1"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.emp_name"/>
+                                </td>
+                                <td class="text-center ">
+                                    <t t-esc="doc.idd.id"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.type_of_lve"/>
+                                </td>
+                                <td class="text-center">
+                                    <t t-esc="doc.approve_by"/>
+                                </td>
+                                <td>
+                                    <t t-esc="doc.status"/>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </tr>
+        </t>
+    </template>
+
+
+    <template id="report_template_emp">
+        <t t-call="web.html_container">
+            <tr t-call="web.external_layout">
+                <div class="page" style="border-bottom: 2px solid black">
+                    <h2 class="text-center">
+                        <b>Employee Absentees Report</b>
+                    </h2>
+                    <center>
+                        <h4>Employee Wise</h4>
+                    </center>
+
+                    <div class="row mt32">
+                        <div class="col-3 text-center">
+                            <strong>Start Date:</strong>
+                            <t t-esc="date_start"/>
+                        </div>
+                        <div class="col-3 text-center" style="margin-left:10px ">
+                            <strong>End Date:</strong>
+                            <t t-esc="date_end"/>
+                        </div>
+                        <div class="col-2"></div>
+                        <div class="col-2"></div>
+                        <div class="col-3"></div>
+                    </div>
+
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr class="text-center">
+                                <th>Sl No</th>
+                                <th>Employee Name</th>
+                                <th>Employee ID</th>
+                                <th>Taken Leaves</th>
+                                <th>Approved</th>
+                                <th style="width:10%">Refused</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <t t-set="i" t-value="1"/>
+                            <tr t-foreach="docs" t-as="doc">
+                                <td class="text-center">
+                                    <span t-esc="i"></span>
+                                    <t t-set="i" t-value="i+1"/>
+                                </td>
+                                <td class="text-center">
+                                    <t t-esc="doc.name"/>
+                                </td>
+                                <td class="text-center">
+                                    <t t-esc="doc.id"/>
+                                </td>
+                                <td class="text-center">
+                                    <t t-esc="ab_count[doc.id]"/>
+                                </td>
+                                <td class="text-center">
+                                    <t t-esc="count[doc.id]"/>
+                                </td>
+                                <td class="text-center">
+                                    <t t-esc="refuse[doc.id]"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </tr>
+        </t>
+    </template>
+
+
+</odoo>
